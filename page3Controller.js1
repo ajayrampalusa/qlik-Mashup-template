@@ -1,0 +1,4 @@
+app.controller("page3Controller", function ($scope) {
+    //$scope.msg = "I love London";
+    console.log("i am in page 3 controller");
+  });

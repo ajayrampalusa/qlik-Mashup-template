@@ -1,0 +1,14 @@
+app.controller("pag1Controller", function ($scope) {
+
+    if(qlikApp == null){
+      location.href="#/";
+      return
+    }
+    else{
+      $scope.msg = "I love London";
+      console.log("i am in page 1 controller");
+      qlikApp.getObject("divSelectionBar","CurrentSelections");
+      qlikApp.getObject("divChart","ePumqMd");    
+    }
+    
+  });

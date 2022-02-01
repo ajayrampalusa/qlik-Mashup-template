@@ -1,0 +1,56 @@
+
+// initialize angular app
+var app = angular.module("myApp", ["ngRoute"]);
+
+// environment configuration
+ var config = {
+  host: "lab-dev.com", //server name
+  prefix: "/engine/",  // use  / if there is no prefix
+  port: 443, // without https : 80
+  isSecure: true
+};
+
+var qlik, qlikApp, appId = "66740701-ca2a-44bc-b04a-afbb3ba7acf2";
+
+function initializeQlik(){
+  $(document).ready(function(){
+
+    // clearing old references
+    qlik = qlikApp = null; 
+  
+    window.qlik = window.qlikApp = null;            
+    
+    require.config( {
+        baseUrl: (config.isSecure ? "https://" : "http://" ) + config.host + (config.port ? ":" + config.port : "" ) + config.prefix + "resources"
+    });
+  
+    // connecting to server (initializing Qlik engine)
+    require(["js/qlik"], function ( qlikObj ) {
+        
+        //angular.bootstrap(document, ["myApp", "qlik-angular"]);
+        window.qlik = qlik = qlikObj;        
+  
+        console.log("Qlik engine has been initialized");
+  
+        //open qlik app
+        window.qlikApp = qlikApp = qlik.openApp(appId, config);
+  
+       console.log("Qlik app '"+ appId +"' opened successfully");
+  
+        qlikApp.model.waitForOpen.promise.then(function () {
+  
+            console.log("app is ready");
+
+            // // //bring current selections
+            // qlikApp.getObject("divSelectionBar", "CurrentSelections");
+  
+            // // //bring a chart
+            // qlikApp.getObject("divChart", "QUdbM"); // change chart id
+        });      
+  
+    });
+  })
+}
+
+
+initializeQlik();

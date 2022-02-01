@@ -1,0 +1,24 @@
+app.config(function($locationProvider, $routeProvider) {
+  $locationProvider.hashPrefix('');
+  $routeProvider
+  .when("/", {
+    templateUrl : "views/home.html",
+    controller : "homeController"
+  })
+  .when("/page1", {
+    templateUrl : "views/page1.html",
+    controller : "pag1Controller"
+  })
+  .when("/page2", {
+    templateUrl : "views/page2.html",
+    controller : "page2Controller"
+  })
+  .when("/page3", {
+    templateUrl : "views/page3.html",
+    controller : "page3Controller"
+  })
+  .otherwise({
+    template : "views/home.html",
+    controller : "homeController"
+  });
+});
